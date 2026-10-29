@@ -1,4 +1,6 @@
 d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\client\ExpenseClient.java
+d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\config\FeignClientConfig.java
+d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\config\InternalGatewaySecurityFilter.java
 d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\controller\ReportController.java
 d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\dto\CategoryBreakdownDto.java
 d:\FinTrack\backend\report-service\src\main\java\com\spendwise\report\dto\CategoryDto.java
