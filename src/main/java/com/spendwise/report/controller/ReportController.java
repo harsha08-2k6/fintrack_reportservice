@@ -30,7 +30,7 @@ public class ReportController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardReportDto> getDashboardReport(
-            @RequestHeader(value = "X-User-Id", required = false) Long userId
+            @RequestHeader(value = "X-Authenticated-User-Id", required = false) Long userId
     ) {
         validateUser(userId);
         return ResponseEntity.ok(reportService.getDashboardReport(userId));
@@ -38,7 +38,7 @@ public class ReportController {
 
     @GetMapping("/category-breakdown")
     public ResponseEntity<List<CategoryBreakdownDto>> getCategoryBreakdown(
-            @RequestHeader(value = "X-User-Id", required = false) Long userId,
+            @RequestHeader(value = "X-Authenticated-User-Id", required = false) Long userId,
             @RequestParam(value = "yearMonth", required = false) String yearMonth
     ) {
         validateUser(userId);
@@ -47,7 +47,7 @@ public class ReportController {
 
     @GetMapping("/monthly-trends")
     public ResponseEntity<List<MonthlyTrendDto>> getMonthlyTrends(
-            @RequestHeader(value = "X-User-Id", required = false) Long userId
+            @RequestHeader(value = "X-Authenticated-User-Id", required = false) Long userId
     ) {
         validateUser(userId);
         return ResponseEntity.ok(reportService.getMonthlyTrends(userId));
@@ -55,7 +55,7 @@ public class ReportController {
 
     @GetMapping("/alerts")
     public ResponseEntity<List<BudgetAlert>> getBudgetAlerts(
-            @RequestHeader(value = "X-User-Id", required = false) Long userId
+            @RequestHeader(value = "X-Authenticated-User-Id", required = false) Long userId
     ) {
         validateUser(userId);
         return ResponseEntity.ok(reportService.getBudgetAlerts(userId));

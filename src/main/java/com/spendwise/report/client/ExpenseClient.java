@@ -13,7 +13,7 @@ public interface ExpenseClient {
 
     @GetMapping("/api/transactions")
     List<ExpenseDto> getAllExpenses(
-            @RequestHeader(value = "X-User-Id", required = false) Long userId,
+            @RequestHeader(value = "X-Authenticated-User-Id", required = false) Long userId,
             @RequestParam(value = "startDate", required = false) String startDate,
             @RequestParam(value = "endDate", required = false) String endDate
     );
