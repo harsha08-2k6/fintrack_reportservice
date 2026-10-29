@@ -5,8 +5,10 @@ import com.spendwise.report.dto.DashboardReportDto;
 import com.spendwise.report.dto.MonthlyTrendDto;
 import com.spendwise.report.entity.BudgetAlert;
 import com.spendwise.report.service.ReportService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,40 +22,42 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    private void validateUser(Long userId) {
+        if (userId == null || userId <= 0) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User authentication required");
+        }
+    }
+
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardReportDto> getDashboardReport(
-            @RequestHeader(value = "X-User-Id", required = false) Long headerUserId,
-            @RequestParam(value = "userId", required = false, defaultValue = "1") Long paramUserId
+            @RequestHeader(value = "X-User-Id", required = false) Long userId
     ) {
-        Long userId = headerUserId != null ? headerUserId : paramUserId;
+        validateUser(userId);
         return ResponseEntity.ok(reportService.getDashboardReport(userId));
     }
 
     @GetMapping("/category-breakdown")
     public ResponseEntity<List<CategoryBreakdownDto>> getCategoryBreakdown(
-            @RequestHeader(value = "X-User-Id", required = false) Long headerUserId,
-            @RequestParam(value = "userId", required = false, defaultValue = "1") Long paramUserId,
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @RequestParam(value = "yearMonth", required = false) String yearMonth
     ) {
-        Long userId = headerUserId != null ? headerUserId : paramUserId;
+        validateUser(userId);
         return ResponseEntity.ok(reportService.getCategoryBreakdown(userId, yearMonth));
     }
 
     @GetMapping("/monthly-trends")
     public ResponseEntity<List<MonthlyTrendDto>> getMonthlyTrends(
-            @RequestHeader(value = "X-User-Id", required = false) Long headerUserId,
-            @RequestParam(value = "userId", required = false, defaultValue = "1") Long paramUserId
+            @RequestHeader(value = "X-User-Id", required = false) Long userId
     ) {
-        Long userId = headerUserId != null ? headerUserId : paramUserId;
+        validateUser(userId);
         return ResponseEntity.ok(reportService.getMonthlyTrends(userId));
     }
 
     @GetMapping("/alerts")
     public ResponseEntity<List<BudgetAlert>> getBudgetAlerts(
-            @RequestHeader(value = "X-User-Id", required = false) Long headerUserId,
-            @RequestParam(value = "userId", required = false, defaultValue = "1") Long paramUserId
+            @RequestHeader(value = "X-User-Id", required = false) Long userId
     ) {
-        Long userId = headerUserId != null ? headerUserId : paramUserId;
+        validateUser(userId);
         return ResponseEntity.ok(reportService.getBudgetAlerts(userId));
     }
 }
